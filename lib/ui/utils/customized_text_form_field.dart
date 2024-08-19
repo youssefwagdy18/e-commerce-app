@@ -1,18 +1,18 @@
-import 'package:e_commerce_app/ui/utils/colors.dart';
+import 'package:e_commerce_app/ui/utils/appColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomizedTextFormField extends StatelessWidget {
-  TextEditingController? controller;
-  TextInputType? keyboardType;
-  String? Function(String?)? validator;
-  bool obscureText;
-  String? fieldName;
-  Widget? suffixIcon;
-  String? hintText;
-  void Function()? suffixIconFunction;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final String? fieldName;
+  final Widget? suffixIcon;
+  final String? hintText;
+  final void Function()? suffixIconFunction;
 
-  CustomizedTextFormField(
+  const CustomizedTextFormField(
       {super.key,
       required this.controller,
       this.keyboardType = TextInputType.text,
@@ -22,6 +22,7 @@ class CustomizedTextFormField extends StatelessWidget {
       this.suffixIcon,
       required this.hintText,
       this.suffixIconFunction});
+
   @override
   Widget build(BuildContext context) {
     return Column(
