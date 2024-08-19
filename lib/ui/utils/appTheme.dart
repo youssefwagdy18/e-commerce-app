@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/ui/utils/colors.dart';
+import 'package:e_commerce_app/ui/utils/appColors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme{
