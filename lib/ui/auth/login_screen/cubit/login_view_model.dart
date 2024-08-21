@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginViewModel extends Cubit<LoginStates>{
   LoginViewModel({required this.loginUseCase}) : super (LoginInitialState());
   LoginUseCase loginUseCase;
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController userNameController = TextEditingController(text: 'youssefwagdy1@gmail.com');
+  TextEditingController passwordController = TextEditingController(text: '123456');
   GlobalKey formKey = GlobalKey<FormState>();
   bool isObscure = true;
   void login() async {

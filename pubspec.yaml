@@ -40,6 +40,7 @@ dependencies:
   dartz: ^0.10.1
   http: ^1.2.2
   connectivity_plus: ^6.0.5
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

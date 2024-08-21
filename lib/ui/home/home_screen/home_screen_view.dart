@@ -16,10 +16,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int selectedIndex =0;
   List<Widget>tabs=[
-    const HomeTab(),
+     HomeTab(),
     const ProductListTab(),
-    FavoritesTab(),
-    ProfileTab()
+    const FavoritesTab(),
+    const ProfileTab()
   ];
   @override
   Widget build(BuildContext context) {

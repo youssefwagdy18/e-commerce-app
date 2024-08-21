@@ -7,7 +7,6 @@ Widget customizedBottomNavigationBar(
     required Function(int) onTapFunction,
     required BuildContext context}) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(15.r),
     child: BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: false,
