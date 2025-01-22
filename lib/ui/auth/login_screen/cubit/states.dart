@@ -1,5 +1,4 @@
-import 'package:e_commerce_app/domain/entities/AuthResultEntity.dart';
-import 'package:e_commerce_app/domain/entities/failures.dart';
+import 'package:e_commerce_app/domain/entities/auth_result_entity.dart';
 
 abstract class LoginStates{}
 class LoginInitialState extends LoginStates{}

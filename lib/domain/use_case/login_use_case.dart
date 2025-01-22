@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/domain/reposatory/reposatory/auth_repo.dart';
-import '../entities/AuthResultEntity.dart';
+import '../entities/auth_result_entity.dart';
 import '../entities/failures.dart';
 
 class LoginUseCase {

@@ -3,9 +3,11 @@ import 'package:e_commerce_app/ui/auth/login_screen/cubit/login_view_model.dart'
 import 'package:e_commerce_app/ui/auth/login_screen/cubit/states.dart';
 import 'package:e_commerce_app/ui/auth/register_screen/register_screen.dart';
 import 'package:e_commerce_app/ui/home/home_screen/home_screen_view.dart';
-import 'package:e_commerce_app/ui/utils/appColors.dart';
+import 'package:e_commerce_app/ui/utils/app_assets.dart';
+import 'package:e_commerce_app/ui/utils/app_colors.dart';
 import 'package:e_commerce_app/ui/utils/customized_text_form_field.dart';
 import 'package:e_commerce_app/ui/utils/dialog_utils.dart';
+import 'package:e_commerce_app/ui/utils/shared_preference_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,25 +22,36 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  LoginViewModel viewModel = LoginViewModel(loginUseCase: injectableLoginUseCase());
+  LoginViewModel viewModel =
+      LoginViewModel(loginUseCase: injectableLoginUseCase());
 
   @override
   Widget build(BuildContext context) {
     return BlocListener(
         listener: (context, state) {
-          if(state is LoginLoadingState){
-           DialogUtils.showLoading(context);
-          }if (state is LoginSuccessState){
+          if (state is LoginLoadingState) {
+            DialogUtils.showLoading(context);
+          }
+          if (state is LoginSuccessState) {
             DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context: context, contentMsg:
-            "${state.authResultEntity!.userEntity!.name!} is Successfully sign up",
-            posAction: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Home()));
-            },
-            posActionName: 'Ok');
-          }if(state is LoginErrorState){
+            DialogUtils.showMessage(
+                context: context,
+                contentMsg:
+                    "${state.authResultEntity!.userEntity!.name!} is Successfully sign up",
+                posAction: () {
+                  SharedPreferenceUtils.saveData(key: 'Token', value: state.authResultEntity!.token);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    ),
+                  );
+                },
+                posActionName: 'Ok');
+          }
+          if (state is LoginErrorState) {
             DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context: context, contentMsg: state.errorMsg!);
+            DialogUtils.showMessage(
+                context: context, contentMsg: state.errorMsg!);
           }
         },
         bloc: viewModel,
@@ -53,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: EdgeInsets.only(
                         top: 85.h, right: 96.w, left: 96.w, bottom: 45.h),
-                    child: Image.asset('assets/images/Vector.png'),
+                    child: Image.asset(AppAssets.routeVector),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
