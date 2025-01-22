@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/data/api/api_manager.dart';
-import 'package:e_commerce_app/domain/entities/AuthResultEntity.dart';
+import 'package:e_commerce_app/domain/entities/auth_result_entity.dart';
 import 'package:e_commerce_app/domain/entities/failures.dart';
 import 'package:e_commerce_app/domain/reposatory/data_source/auth_remote_data_source.dart';
 

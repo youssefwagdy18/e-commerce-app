@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app/domain/entities/AuthResultEntity.dart';
+import 'package:e_commerce_app/domain/entities/auth_result_entity.dart';
 import 'package:e_commerce_app/domain/entities/failures.dart';
 
 abstract class AuthRepo {

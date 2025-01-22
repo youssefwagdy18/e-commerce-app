@@ -1,4 +1,5 @@
-import 'package:e_commerce_app/ui/utils/appColors.dart';
+import 'package:e_commerce_app/ui/utils/app_assets.dart';
+import 'package:e_commerce_app/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,7 +8,6 @@ Widget customizedBottomNavigationBar(
     required Function(int) onTapFunction,
     required BuildContext context}) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(15.r),
     child: BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: false,
@@ -27,7 +27,7 @@ Widget customizedBottomNavigationBar(
               ? AppColors.primaryColor
               : AppColors.whiteColor,
           child: ImageIcon(
-            const AssetImage('assets/icons/home-icon.png'),
+            const AssetImage(AppAssets.homeIcon),
             size: 40.sp,
           ),
         )),
@@ -42,7 +42,7 @@ Widget customizedBottomNavigationBar(
               ? AppColors.primaryColor
               : AppColors.whiteColor,
           child: ImageIcon(
-            const AssetImage('assets/icons/category_icon.png'),
+            const AssetImage(AppAssets.categoryIcon),
             size: 40.sp,
           ),
         )),
@@ -57,7 +57,7 @@ Widget customizedBottomNavigationBar(
               ? AppColors.primaryColor
               : AppColors.whiteColor,
           child: ImageIcon(
-            const AssetImage('assets/icons/heart-icon.png'),
+            const AssetImage(AppAssets.favoriteIcon),
             size: 40.sp,
           ),
         )),
@@ -72,7 +72,7 @@ Widget customizedBottomNavigationBar(
               ? AppColors.primaryColor
               : AppColors.whiteColor,
           child: ImageIcon(
-            const AssetImage('assets/icons/user-icon.png'),
+            const AssetImage(AppAssets.userIcon),
             size: 40.sp,
           ),
         )),

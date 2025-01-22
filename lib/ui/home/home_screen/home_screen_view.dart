@@ -1,9 +1,8 @@
+import 'package:e_commerce_app/ui/home/home_screen/cubit/home_screen_view_model.dart';
+import 'package:e_commerce_app/ui/home/home_screen/cubit/home_states.dart';
 import 'package:e_commerce_app/ui/home/home_screen/widget/customized_bottom_navigation_bar.dart';
-import 'package:e_commerce_app/ui/home/tabs/favourite_tab/favorites_tab.dart';
-import 'package:e_commerce_app/ui/home/tabs/home_tab/home_tab.dart';
-import 'package:e_commerce_app/ui/home/tabs/product_list_tab/product_list_tab.dart';
-import 'package:e_commerce_app/ui/home/tabs/profile_tab/profile_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = 'home_screen_view';
@@ -14,25 +13,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int selectedIndex =0;
-  List<Widget>tabs=[
-    const HomeTab(),
-    const ProductListTab(),
-    FavoritesTab(),
-    ProfileTab()
-  ];
+  HomeScreenViewModel viewModel = HomeScreenViewModel();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: customizedBottomNavigationBar(
-          selectedIndex: selectedIndex,
-          onTapFunction: (index){
-            setState(() {
-              selectedIndex = index;
-            });
-          },
-          context: context),
-      body: tabs[selectedIndex],
+    return BlocBuilder<HomeScreenViewModel, HomeStates>(
+      bloc: viewModel,
+      builder: (context, state) {
+        return Scaffold(
+          bottomNavigationBar: customizedBottomNavigationBar(
+              selectedIndex: viewModel.selectedIndex,
+              onTapFunction: (index) {
+                viewModel.changeTabs(index);
+              },
+              context: context),
+          body: viewModel.tabs[viewModel.selectedIndex],
+        );
+      },
     );
   }
 }
