@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/ui/utils/appColors.dart';
+import 'package:e_commerce_app/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

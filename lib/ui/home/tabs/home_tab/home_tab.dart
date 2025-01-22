@@ -1,6 +1,13 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:e_commerce_app/ui/utils/appColors.dart';
+import 'package:e_commerce_app/domain/di.dart';
+import 'package:e_commerce_app/ui/home/tabs/home_tab/cubit/home_tab_states.dart';
+import 'package:e_commerce_app/ui/home/tabs/home_tab/cubit/home_tab_view_model.dart';
+import 'package:e_commerce_app/ui/home/tabs/home_tab/widgets/customized_grid_view.dart';
+import 'package:e_commerce_app/ui/home/tabs/home_tab/widgets/customized_row_bar.dart';
+import 'package:e_commerce_app/ui/utils/app_colors.dart';
+import 'package:e_commerce_app/ui/utils/custom_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeTab extends StatefulWidget {
@@ -12,83 +19,65 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<Image> adverts = [
-    Image.asset('assets/images/carosal_advert_1.jpeg',),
-    // Image.asset('assets/images/unsplash_PDX_a_82obo_2.png',height:200.h ,width: 400.w,),
-    // Image.asset('assets/images/unsplash_kRNZiGKtz48_3.png',height:200.h ,width: 400.w,),
-  ];
+  HomeTabViewModel viewModel = HomeTabViewModel(
+      homeCategUseCase: injectableCategUseCase(),
+      homeBrandUseCase: injectableBrandUseCase());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
-        leadingWidth: double.infinity,
-        leading: Row(
-          children: [
-            SizedBox(
-              width: 16.w,
-            ),
-            SizedBox(
-              child: Image.asset(
-                'assets/images/route_app_title.png',
+    return BlocBuilder<HomeTabViewModel, HomeTabStates>(
+        bloc: viewModel
+          ..getCategories()
+          ..getBrands(),
+        builder: (context, states) {
+          return Scaffold(
+            backgroundColor: AppColors.whiteColor,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomSearchBar(onTextFieldTab: () {
+                      // todo searching in home tab
+                    }, onAddToCartTab: () {
+                      //todo add to cart in home tab
+                    }),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16.h, left: 16, right: 16),
+                      child: ImageSlideshow(
+                        autoPlayInterval: 3000,
+                        indicatorColor: AppColors.primaryColor,
+                        indicatorBackgroundColor: AppColors.whiteColor,
+                        indicatorRadius: 5.sp,
+                        width: 400.w,
+                        height: 200.h,
+                        initialPage: 0,
+                        isLoop: true,
+                        children: viewModel.adverts,
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
+                        child: const CustomizedRowBar(
+                          name: 'Categories',
+                        ),),
+                    states is HomeCategLoadingState
+                        ? const Center(child: CircularProgressIndicator())
+                        : CustomizedGridView(
+                            data: viewModel.categData,
+                          ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
+                        child: const CustomizedRowBar(name: 'Brands')),
+                    states is HomeBrandLoadingState
+                        ? const Center(child: CircularProgressIndicator())
+                        : CustomizedGridView(data: viewModel.brandList)
+                    // const CustomizedGridView(),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 17.w, right: 10.w),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 50.h,
-                  width: 348.w,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'What do you search for?',
-                      border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(25.r),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: AppColors.primaryColor),
-                        borderRadius: BorderRadius.circular(25.r),
-                      ),
-                      prefixIcon: ImageIcon(
-                        const AssetImage('assets/icons/icon _search.png'),
-                        size: 24.sp,
-                      ),
-                      prefixIconColor: AppColors.primaryColor,
-                      fillColor: Colors.white,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    ///todo Add to cart logic
-                  },
-                  icon: const ImageIcon(
-                    AssetImage('assets/icons/icon _shopping cart.png'),
-                    color: AppColors.primaryColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          CarouselSlider(
-            items: adverts,
-            options: CarouselOptions(
-              enlargeCenterPage: true,
-              enlargeFactor: 0.5
-            ),
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 }

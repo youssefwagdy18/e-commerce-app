@@ -2,7 +2,8 @@ import 'package:e_commerce_app/domain/di.dart';
 import 'package:e_commerce_app/ui/auth/login_screen/login_screen.dart';
 import 'package:e_commerce_app/ui/auth/register_screen/cubit/register_view_model.dart';
 import 'package:e_commerce_app/ui/auth/register_screen/cubit/states.dart';
-import 'package:e_commerce_app/ui/utils/appColors.dart';
+import 'package:e_commerce_app/ui/utils/app_assets.dart';
+import 'package:e_commerce_app/ui/utils/app_colors.dart';
 import 'package:e_commerce_app/ui/utils/customized_text_form_field.dart';
 import 'package:e_commerce_app/ui/utils/dialog_utils.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                       top: 85.h, right: 96.w, left: 96.w, bottom: 45.h),
-                  child: Image.asset('assets/images/Vector.png'),
+                  child: Image.asset(AppAssets.routeVector),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
