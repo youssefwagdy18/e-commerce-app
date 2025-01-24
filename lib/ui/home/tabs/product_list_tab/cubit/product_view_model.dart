@@ -24,7 +24,6 @@ class ProductViewModel extends Cubit<ProductStates> {
       },
       (response) {
         data = response.data!;
-        print(numbOfItemsInCart);
         emit(
           SuccessProductState(productEntity: response),
         );
@@ -48,7 +47,6 @@ class ProductViewModel extends Cubit<ProductStates> {
       },
       (response) {
         numbOfItemsInCart = response.numOfCartItems!;
-        print('Num of items = $numbOfItemsInCart');
         emit(
           AddToCartSuccessState(addToCartEntity: response),
         );
