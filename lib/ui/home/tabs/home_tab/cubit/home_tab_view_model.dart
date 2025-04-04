@@ -20,25 +20,42 @@ class HomeTabViewModel extends Cubit<HomeTabStates> {
   HomeBrandUseCase homeBrandUseCase;
   List<CategOrBrandDataEntity> categData = [];
   List<CategOrBrandDataEntity> brandList = [];
+
   void getCategories() async {
-    emit(HomeCategLoadingState(loadingText: 'Loading .....'));
+    emit(
+      HomeTabInitialState(),
+    );
+    emit(
+      HomeCategLoadingState(loadingText: 'Loading .....'),
+    );
     var either = await homeCategUseCase.invoke();
     either.fold((fail) {
       emit(HomeCategFailureState(failureEntity: fail));
     }, (response) {
       categData = response.data ?? [];
-      emit(HomeCategSuccessState(homeCategEntity: response));
+      emit(
+        HomeCategSuccessState(homeCategEntity: response),
+      );
     });
   }
 
   void getBrands() async {
-    emit(HomeBrandLoadingState(loadingText: 'Loading ......'));
+    emit(
+      HomeTabInitialState(),
+    );
+    emit(
+      HomeBrandLoadingState(loadingText: 'Loading ......'),
+    );
     var either = await homeBrandUseCase.invoke();
     either.fold((left) {
-      emit(HomeBrandFailState(failureEntity: left));
+      emit(
+        HomeBrandFailState(failureEntity: left),
+      );
     }, (response) {
       brandList = response.data ?? [];
-      emit(HomeBrandSuccessState(homeBrandEntity: response));
+      emit(
+        HomeBrandSuccessState(homeBrandEntity: response),
+      );
     });
   }
 }
