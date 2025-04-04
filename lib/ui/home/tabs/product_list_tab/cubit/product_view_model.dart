@@ -32,7 +32,6 @@ class ProductViewModel extends Cubit<ProductStates> {
 
   }
 
-  static ProductViewModel get(context) => BlocProvider.of(context);
 
   void addToCart(String productId) async {
     emit(

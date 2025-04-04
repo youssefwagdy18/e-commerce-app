@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeTab extends StatefulWidget {
   static const String routeName = 'Home tab';
+
   const HomeTab({super.key});
 
   @override
@@ -22,62 +23,65 @@ class _HomeTabState extends State<HomeTab> {
   HomeTabViewModel viewModel = HomeTabViewModel(
       homeCategUseCase: injectableCategUseCase(),
       homeBrandUseCase: injectableBrandUseCase());
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeTabViewModel, HomeTabStates>(
-        bloc: viewModel
-          ..getCategories()
-          ..getBrands(),
-        builder: (context, states) {
-          return Scaffold(
-            backgroundColor: AppColors.whiteColor,
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CustomSearchBar(onTextFieldTab: () {
-                      // todo searching in home tab
-                    }, onAddToCartTab: () {
-                      //todo add to cart in home tab
-                    }),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.h, left: 16, right: 16),
-                      child: ImageSlideshow(
-                        autoPlayInterval: 3000,
-                        indicatorColor: AppColors.primaryColor,
-                        indicatorBackgroundColor: AppColors.whiteColor,
-                        indicatorRadius: 5.sp,
-                        width: 400.w,
-                        height: 200.h,
-                        initialPage: 0,
-                        isLoop: true,
-                        children: viewModel.adverts,
-                      ),
+      bloc: viewModel
+        ..getCategories()
+        ..getBrands(),
+      builder: (context, states) {
+        return Scaffold(
+          backgroundColor: AppColors.whiteColor,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomSearchBar(onTextFieldTab: () {
+                    // todo searching in home tab
+                  }, onAddToCartTab: () {
+                    //todo add to cart in home tab
+                  }),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16.h, left: 16, right: 16),
+                    child: ImageSlideshow(
+                      autoPlayInterval: 3000,
+                      indicatorColor: AppColors.primaryColor,
+                      indicatorBackgroundColor: AppColors.whiteColor,
+                      indicatorRadius: 5.sp,
+                      width: 400.w,
+                      height: 200.h,
+                      initialPage: 0,
+                      isLoop: true,
+                      children: viewModel.adverts,
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                            top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
-                        child: const CustomizedRowBar(
-                          name: 'Categories',
-                        ),),
-                    states is HomeCategLoadingState
-                        ? const Center(child: CircularProgressIndicator())
-                        : CustomizedGridView(
-                            data: viewModel.categData,
-                          ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                            top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
-                        child: const CustomizedRowBar(name: 'Brands')),
-                    states is HomeBrandLoadingState
-                        ? const Center(child: CircularProgressIndicator())
-                        : CustomizedGridView(data: viewModel.brandList)
-                    // const CustomizedGridView(),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
+                    child: const CustomizedRowBar(
+                      name: 'Categories',
+                    ),
+                  ),
+                  states is HomeCategLoadingState
+                      ? const Center(child: CircularProgressIndicator())
+                      : CustomizedGridView(
+                          data: viewModel.categData,
+                        ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: 24.h, left: 16.w, right: 17.w, bottom: 16.h),
+                      child: const CustomizedRowBar(name: 'Brands')),
+                  states is HomeBrandLoadingState
+                      ? const Center(child: CircularProgressIndicator())
+                      : CustomizedGridView(data: viewModel.brandList)
+                  // const CustomizedGridView(),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
